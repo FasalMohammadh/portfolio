@@ -3,6 +3,10 @@
 /* .icon-button-active {
   background-color: rgba(0, 0, 0, 0.04);
 } */
+:root {
+  --primary: 114 82 239;
+  --secondary: 58 57 94;
+}
 #root {
   height: 100%;
 }
@@ -22,20 +26,35 @@ body {
   height: 100%;
 }
 ::-webkit-scrollbar {
-  width: 8px;
-  border-radius: 100px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  border-radius: 100px;
-  background: #3a395e;
+  border-radius: 5px;
+  background-color: rgb(var(--secondary));
 }
 ::-webkit-scrollbar-thumb {
-  border-radius: 100px;
-  background: #7051ef;
+  border-radius: 5px;
+  background-color: rgb(var(--primary) / 0.5);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(var(--primary));
 }
 
-.cus-card-desc {
+@keyframes buttonEffect {
+  90% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+.swiper-nav-control:hover {
+  animation: buttonEffect 0.3s forwards;
+  background: #000;
+}
+/* .cus-card-desc {
   position: absolute;
   top: 0;
   animation: animateText 1s infinite ease-in-out;
@@ -55,4 +74,4 @@ body {
   75% {
     top: -72px;
   }
-}
+} */

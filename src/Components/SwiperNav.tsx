@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { Fab, IconButton, Stack } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 
 import NavigatePrevIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
@@ -8,7 +8,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 
 import { useSwiper } from "swiper/react";
 
-import { BLUE } from "../Constants/COLORS";
+import { BLUE, PRIMARY } from "../Constants/COLORS";
 
 const SwiperNav = (): JSX.Element => {
   const swiper = useSwiper();
@@ -35,37 +35,49 @@ const SwiperNav = (): JSX.Element => {
   };
 
   return (
-    <Stack
+    <Box
       position="absolute"
-      top="50%"
-      right="0"
+      sx={{ transform: "translateX(-50%)" }}
       zIndex={1}
-      sx={{
-        transform: "translateY(-50%)",
-      }}
+      left="50%"
+      bottom="10px"
+      display="flex"
+      gap=".5em"
       alignItems="center"
-      p={2}
-      boxSizing="border-box"
-      maxHeight="100%"
     >
-      <Fab
+      <IconButton
+        style={{ backgroundColor: "white" }}
         onClick={handleClickPrev}
         disabled={isBeginning}
-        sx={{ aspectRatio: "1" }}
+        className="swiper-nav-control"
       >
-        <NavigatePrevIcon />
-      </Fab>
+        <NavigatePrevIcon sx={{ fontSize: "14px" }} />
+      </IconButton>
       {Array(swiper.slides.length)
         .fill("1")
         .map((_item, index) => (
-          <IconButton onClick={(): void => handleClickDot(index)} key={index}>
-            <CircleIcon htmlColor={BLUE[100]} fontSize="small" />
-          </IconButton>
+          <Box
+            onClick={(): void => handleClickDot(index)}
+            key={index}
+            width="14px"
+            height="14px"
+            bgcolor="white"
+            sx={{
+              cursor: "pointer",
+              borderRadius: "100%",
+              boxShadow:
+                swiper.activeIndex === index ? `0 0 0 3px ${PRIMARY}` : "none",
+            }}
+          />
         ))}
-      <Fab onClick={handleClickNext} disabled={isEnd} sx={{ aspectRatio: 1 }}>
-        <NavigateNextIcon />
-      </Fab>
-    </Stack>
+      <IconButton
+        style={{ backgroundColor: "white" }}
+        onClick={handleClickNext}
+        disabled={isEnd}
+      >
+        <NavigateNextIcon sx={{ fontSize: "14px" }} />
+      </IconButton>
+    </Box>
   );
 };
 
