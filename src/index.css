@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:wght@300&display=swap');
 
 /* .icon-button-active {
   background-color: rgba(0, 0, 0, 0.04);
@@ -75,3 +75,48 @@ body {
     top: -72px;
   }
 } */
+.introduction-container {
+  opacity: 0;
+  filter: blur(2px);
+  display: none;
+}
+.animate-visible {
+  transition: opacity 0.5s linear, filter 0.5s linear;
+  opacity: 1;
+  filter: blur(0);
+}
+.animate-section-visible {
+  transform: translateX(0) !important ;
+  transition: transform 200ms linear;
+}
+.introduction-container__section1 {
+  position: relative;
+  transform: translateX(calc(-100% - 56px));
+}
+.introduction-container__section2 {
+  position: relative;
+}
+
+@keyframes bouncy-loading {
+  5% {
+    width: 40px;
+    height: 40px;
+  }
+  35% {
+    width: 40px;
+    height: 40px;
+  }
+  40% {
+    width: 120px;
+    height: 120px;
+  }
+  70% {
+    width: 120px;
+    height: 120px;
+  }
+  100% {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
