@@ -1,69 +1,70 @@
-import { Box, styled, Typography } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+
+import { styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 import MyImage from './../assets/MyImage.webp';
 
-import { Black, PRIMARY } from '../Constants/COLORS';
-import TypoH2Secondary800 from './TypoH2Secondary800';
+import { Black, PRIMARY, SECONDARY } from '../Constants/COLORS';
+
 import ContactMe from './ContactMe';
-import { useEffect, useRef, useState } from 'react';
+import TypoH2Secondary800 from './TypoH2Secondary800';
+import TypingEffectText from './TypingEffectText';
+
+import useIsMobile from '../Hooks/useIsMobile';
 
 const CircleBorder = styled(Box)({
-  width: 'fit-content',
   borderRadius: '100%',
-  border: '1px solid #ede7f6',
-  padding: '32px',
+  border: '4px solid #ede7f6',
   boxShadow: '0 0 0 2px rgb(237 231 246/.1)',
   marginInline: 'auto',
-});
-
-const CirclePrimaryImg = styled('img')({
-  borderRadius: '100%',
-  border: `40px solid ${PRIMARY}`,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  aspectRatio: '1',
-  filter: 'blur(.4px)',
-  position: 'relative',
-  overflow: 'hidden',
-  boxShadow: `inset 0 0 0 10px ${PRIMARY}5a,0 0 0 10px ${PRIMARY}5a`,
-  objectFit: 'cover',
-  objectPosition: 'top',
-  width: '300px',
+  boxSizing: 'border-box',
+  '&.padding28': {
+    transition: 'padding 500ms ease-in-out',
+    padding: 28,
+  },
 });
 
 const Section1 = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const div1 = useRef<HTMLDivElement>(null);
-  const div2 = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
-  useEffect((): void => {
-    const interSecObserver = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry: IntersectionObserverEntry): void => {
-        setTimeout((): void => {
-          entry.isIntersecting
-            ? entry.target.classList.add('animate-visible')
-            : entry.target.classList.remove('animate-visible');
-        }, 200);
-      });
-    });
+  const [role, setRole] = useState('');
 
-    containerRef.current && interSecObserver.observe(containerRef.current);
+  const circleBorderRef = useRef<HTMLDivElement>(null);
+  const circleBorder2Ref = useRef<HTMLDivElement>(null);
 
-    const interSecObserverSection = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry: IntersectionObserverEntry): void => {
-        setTimeout((): void => {
-          entry.isIntersecting
-            ? entry.target.classList.add('animate-section-visible')
-            : entry.target.classList.remove('animate-section-visible');
-        }, 200);
-      });
-    });
+  useEffect((): (() => void) => {
+    const interSecObserverRing = new IntersectionObserver(
+      (entries: IntersectionObserverEntry[]): void => {
+        entries.forEach((entry: IntersectionObserverEntry): void => {
+          setTimeout((): void => {
+            if (entry.isIntersecting) entry.target.classList.add('padding28');
+            else entry.target.classList.remove('padding28');
+          }, 500);
+        });
+      }
+    );
 
-    div1.current && interSecObserverSection.observe(div1.current);
-    div2.current && interSecObserverSection.observe(div2.current);
+    circleBorderRef.current &&
+      interSecObserverRing.observe(circleBorderRef.current);
+    circleBorder2Ref.current &&
+      interSecObserverRing.observe(circleBorder2Ref.current);
+
+    return (): void => {
+      interSecObserverRing.disconnect();
+    };
   }, []);
+
+  const CirclePrimaryImg = styled('img')({
+    borderRadius: '100%',
+    aspectRatio: '1',
+    filter: 'blur(.4px)',
+    boxShadow: `inset 0 0 0 10px ${PRIMARY}5a`,
+    border: `${isMobile ? '10px' : '40px'} solid ${PRIMARY}`,
+    boxSizing: 'border-box',
+  });
 
   return (
     <Grid2
@@ -72,23 +73,65 @@ const Section1 = () => {
       boxSizing='border-box'
       justifyContent='space-between'
       className='introduction-container'
-      px={7}
-      ref={containerRef}
+      columns={2}
+      minWidth={{ md: 'calc(100vh - 100px)' }}
     >
-      <Grid2 lg={6} xs={12} rowSpacing={{ xs: 4 }} className='introduction-container__section1' ref={div1}>
-        <TypoH2Secondary800 zIndex='100'>
-          I'm Fasal Mohammadh,a
-          <div style={{ color: PRIMARY }}>Web Developer</div>
+      <Grid2
+        md={1}
+        xs={2}
+        rowSpacing={{ xs: 4 }}
+        className='introduction-container__section1'
+      >
+        <TypingEffectText
+          textToAnimate='I&rsquo;m Fazal Mohammadh, a Web Developer.'
+          typingSpeed={350}
+          renderText={(text, props) => (
+            <TypoH2Secondary800
+              style={{
+                background: `linear-gradient(45deg, ${PRIMARY},${SECONDARY})`,
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+              }}
+              {...props}
+            >
+              {text}
+            </TypoH2Secondary800>
+          )}
+        />
+
+        <TypoH2Secondary800>
+          <div style={{ color: PRIMARY }}>{role}</div>
         </TypoH2Secondary800>
-        <Typography color={Black[100]} fontWeight={500} mb={2}>
-          I'am Fasal Mohammadh, I'm{' '}
-          {Math.floor((Date.now() - new Date('2000-02-02').getTime()) / (1000 * 60 * 60 * 24 * 365))} years old
+        <Typography
+          color={Black[100]}
+          fontWeight={500}
+          mb={2}
+          fontSize='1.2rem'
+        >
+          I'm Fasal Mohammadh, shorty Fasal, and I'm{' '}
+          {Math.floor(
+            (Date.now() -
+              new Date('2000-02-02').setHours(0, 0, 0, 0).valueOf()) /
+              (1000 * 60 * 60 * 24 * 365)
+          )}{' '}
+          years old. I am an IT professional with a higher national diploma. At
+          the moment, I'm a working as trainee web developer in DotTech
+          Softwares.
         </Typography>
-        <ContactMe />
+        {!isMobile && <ContactMe />}
       </Grid2>
-      <Grid2 lg={6} xs={12} alignSelf='center' className='introduction-container__section2' ref={div2}>
-        <CircleBorder>
-          <CircleBorder>
+      <Grid2
+        md={1}
+        xs={2}
+        alignSelf='center'
+        className='introduction-container__section2'
+      >
+        <CircleBorder
+          ref={circleBorder2Ref}
+          maxWidth={{ md: 'calc(100% - 100px)' }}
+        >
+          <CircleBorder ref={circleBorderRef}>
             <CirclePrimaryImg src={MyImage} alt='' />
           </CircleBorder>
         </CircleBorder>

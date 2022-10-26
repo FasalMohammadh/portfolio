@@ -1,2 +1,2 @@
 export const MONTSERRAT = "'Montserrat', sans-serif;";
-export const PLUSJAKARTA="'Plus Jakarta Sans', sans-serif;"
+export const PLUS_JAKARTA = "'Plus Jakarta Sans', sans-serif;";

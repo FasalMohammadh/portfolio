@@ -1,46 +1,41 @@
-import {
-  AppBar,
-  Box,
-  Stack,
-  styled,
-  Switch,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import AppBar from '@mui/material/AppBar';
+import Stack from '@mui/material/Stack';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
-import LightModeIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+import CodeLogo from '../assets/code.webp';
 
-import CodeLogo from "../assets/code.webp";
+import { Black } from '../Constants/COLORS';
 
-import { Black, PRIMARY } from "../Constants/COLORS";
+import ContactMe from './ContactMe';
 
-import ContactMe from "./ContactMe";
+import useIsMobile from '../Hooks/useIsMobile';
 
-const Header = (): JSX.Element => (
-  <AppBar color="transparent" sx={{ boxShadow: "none" }} position="static">
-    <Toolbar>
-      <Stack direction="row" gap={4} p={2} alignItems="center" width={1}>
-        <img
-          src={CodeLogo}
-          alt=""
-          style={{ maxWidth: "80px", objectFit: "cover" }}
-        />
-        <Typography variant="h5" fontWeight={600} color={Black[100]}>
-          Web Developer
-          <Box
-            bgcolor={PRIMARY}
-            display="inline-block"
-            borderRadius="100%"
-            p={0.3}
-            ml={0.2}
+const Header = (): JSX.Element => {
+  const isMobile = useIsMobile();
+
+  return (
+    <AppBar sx={{ boxShadow: 'none', bgcolor: 'white' }} position='fixed'>
+      <Toolbar>
+        <Stack direction='row' gap={4} p={2} alignItems='center' width={1}>
+          <img
+            src={CodeLogo}
+            alt='braces logo'
+            style={{ width: isMobile ? '40px' : '80px', objectFit: 'cover' }}
           />
-        </Typography>
+          <Typography
+            variant={isMobile ? 'h6' : 'h5'}
+            fontWeight={600}
+            color={Black[100]}
+          >
+            Web Developer
+          </Typography>
 
-        <ContactMe BtnProps={{ sx: { display: "table", ml: "auto" } }} />
-      </Stack>
-    </Toolbar>
-  </AppBar>
-);
+          <ContactMe BtnProps={{ sx: { display: 'table', ml: 'auto' } }} />
+        </Stack>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Header;

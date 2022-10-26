@@ -1,43 +1,63 @@
-import { useRef, useState } from "react";
+import { useRef, useState } from 'react';
 
-import { Button, ButtonProps, Popover } from "@mui/material";
+import { ButtonProps } from '@mui/material';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 
-import ContactMeSocialMedia from "./ContactMeSocialMedia";
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+
+import { PRIMARY } from '../Constants/COLORS';
+
+import ContactMeSocialMedia from './ContactMeSocialMedia';
+
+import useIsMobile from '../Hooks/useIsMobile';
 
 interface ContactMeProps {
   BtnProps?: ButtonProps;
 }
 
 const ContactMe = ({ BtnProps }: ContactMeProps): JSX.Element => {
+  const isMobile = useIsMobile();
+
   const [isPopOverVisible, setIsPopOverVisible] = useState<boolean>(false);
 
-  const ButtonRef = useRef<HTMLButtonElement>(null!);
+  const buttonRef = useRef<HTMLButtonElement>(null!);
 
   const handleClick = () => setIsPopOverVisible(true);
 
   return (
     <>
-      <Button
-        {...BtnProps}
-        color="primary"
-        ref={ButtonRef}
-        onClick={handleClick}
-      >
-        Contact Me
-      </Button>
+      {isMobile ? (
+        <IconButton onClick={handleClick} ref={buttonRef}>
+          <ContactSupportIcon fontSize='large' htmlColor={PRIMARY} />
+        </IconButton>
+      ) : (
+        <Button
+          color='primary'
+          ref={buttonRef}
+          onClick={handleClick}
+          {...BtnProps}
+        >
+          <Typography variant={isMobile ? 'body2' : 'button'}>
+            Contact Me
+          </Typography>
+        </Button>
+      )}
       <Popover
-        anchorEl={ButtonRef.current}
+        anchorEl={buttonRef.current}
         open={isPopOverVisible}
-        PaperProps={{ sx: { borderRadius: "40px", p: 1 } }}
+        PaperProps={{ sx: { borderRadius: '40px', p: 1 } }}
         onClose={(): void => {
           setIsPopOverVisible(false);
         }}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
       >
-        <ContactMeSocialMedia maxWidth="200px" />
+        <ContactMeSocialMedia maxWidth='200px' />
       </Popover>
     </>
   );

@@ -1,19 +1,23 @@
-import { Typography, TypographyProps } from "@mui/material";
+import { Typography, TypographyProps } from '@mui/material';
 
-import { SECONDARY } from "../Constants/COLORS";
-import { PLUSJAKARTA } from "../Constants/FONTS";
+import { SECONDARY } from '../Constants/COLORS';
+import { PLUS_JAKARTA } from '../Constants/FONTS';
 
-const TypoH2Secondary800 = (props: TypographyProps) => (
-  <Typography {...props} />
-);
+import useIsMobile from '../Hooks/useIsMobile';
 
-TypoH2Secondary800.defaultProps = {
-  variant: "h2",
-  fontFamily: PLUSJAKARTA,
-  fontWeight: 800,
-  color: SECONDARY,
-  mb: 2,
-  className: "typo",
+const TypoH2Secondary800 = (props: TypographyProps) => {
+  const isMobile = useIsMobile();
+
+  return (
+    <Typography
+      variant={isMobile ? 'h4' : 'h3'}
+      fontFamily={PLUS_JAKARTA}
+      fontWeight={800}
+      color={SECONDARY}
+      mb={2}
+      {...props}
+    />
+  );
 };
 
 export default TypoH2Secondary800;

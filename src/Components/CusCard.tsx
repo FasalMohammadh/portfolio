@@ -6,29 +6,29 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import SwiperNav from "./SwiperNav";
+import SwiperNav from './SwiperNav';
 
 interface CusCardProps {
   title: string;
   desc: string;
-  imgSrcs: string[];
+  imgSrcset: string[];
 }
 
-const CusCard = ({ title, desc, imgSrcs }: CusCardProps): JSX.Element => (
+const CusCard = ({ title, desc, imgSrcset }: CusCardProps): JSX.Element => (
   <Box py={2}>
-    <Card color="primary">
+    <Card color='primary'>
       <Swiper>
-        {imgSrcs.map((imgSrc, index) => (
+        {imgSrcset.map((imgSrc, index) => (
           <SwiperSlide key={index}>
             <CardMedia
-              component="img"
+              component='img'
               src={imgSrc}
-              alt=""
-              style={{ objectFit: "contain" }}
+              alt=''
+              style={{ objectFit: 'contain' }}
             />
           </SwiperSlide>
         ))}
@@ -38,17 +38,12 @@ const CusCard = ({ title, desc, imgSrcs }: CusCardProps): JSX.Element => (
         <Typography gutterBottom fontWeight={500}>
           {title}
         </Typography>
-        <Box
-          component={Typography}
-          color="text.secondary"
-          fontWeight={500}
-          variant="body2"
-        >
+        <Typography color='text.secondary' fontWeight={500} variant='body2'>
           {desc}
-        </Box>
+        </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="text" size="small">
+        <Button variant='text' size='small'>
           View Repository
         </Button>
       </CardActions>

@@ -1,6 +1,10 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
-const Loading = () => {
+const Loading = ({
+  handleAnimationEnd,
+}: {
+  handleAnimationEnd: () => void;
+}): JSX.Element => {
   return (
     <Box
       sx={{
@@ -9,15 +13,19 @@ const Loading = () => {
         backgroundColor: 'white',
         display: 'grid',
         placeContent: 'center',
+        overflow: 'hidden',
+        position: 'fixed',
+        zIndex: 1000,
       }}
     >
       <Box
+        onAnimationEnd={handleAnimationEnd}
         sx={{
+          aspectRatio: '1/1',
           background: 'linear-gradient(0.25turn, #7051ef, #7051effe)',
           animation: 'bouncy-loading 1.5s linear forwards',
           borderRadius: '999px',
           width: 0,
-          height: 0,
         }}
       />
     </Box>

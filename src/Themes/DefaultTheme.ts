@@ -1,7 +1,7 @@
-import { createTheme } from "@mui/material";
+import { createTheme } from '@mui/material';
 
-import { PRIMARY, SECONDARY } from "../Constants/COLORS";
-import { MONTSERRAT, PLUSJAKARTA } from "../Constants/FONTS";
+import { PRIMARY, SECONDARY } from '../Constants/COLORS';
+import { MONTSERRAT, PLUS_JAKARTA } from '../Constants/FONTS';
 
 const DefaultTheme = createTheme({
   palette: {
@@ -20,21 +20,21 @@ const DefaultTheme = createTheme({
   components: {
     MuiLink: {
       styleOverrides: {
-        root: { fontFamily: PLUSJAKARTA },
+        root: { fontFamily: PLUS_JAKARTA },
       },
     },
     MuiButton: {
       defaultProps: {
-        variant: "contained",
-        size: "large",
+        variant: 'contained',
+        size: 'large',
       },
       styleOverrides: {
         root: {
-          textTransform: "none",
-          transition: "all 200ms ease-in-out",
-          borderRadius: "20px",
-          "&:hover": {
-            transform: "scale(1.1)",
+          textTransform: 'none',
+          transition: 'all 200ms ease-in-out',
+          borderRadius: '20px',
+          '&:hover': {
+            transform: 'scale(1.1)',
           },
         },
       },
