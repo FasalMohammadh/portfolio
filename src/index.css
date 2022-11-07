@@ -99,3 +99,15 @@ body {
     border-color: transparent;
   }
 }
+
+.add-padding {
+  transition: padding 500ms ease-in-out;
+  padding: 28px;
+}
+
+@media screen and (max-width: 900px) {
+  .add-padding {
+    transition: padding 500ms ease-in-out;
+    padding: 14px;
+  }
+}

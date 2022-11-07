@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
-import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { styled } from '@mui/material';
 
 import MyImage from './../assets/MyImage.webp';
 
@@ -21,28 +21,42 @@ const CircleBorder = styled(Box)({
   boxShadow: '0 0 0 2px rgb(237 231 246/.1)',
   marginInline: 'auto',
   boxSizing: 'border-box',
-  '&.padding28': {
-    transition: 'padding 500ms ease-in-out',
-    padding: 28,
-  },
 });
 
 const Section1 = () => {
   const isMobile = useIsMobile();
 
-  const [role, setRole] = useState('');
-
   const circleBorderRef = useRef<HTMLDivElement>(null);
   const circleBorder2Ref = useRef<HTMLDivElement>(null);
 
+  const CirclePrimaryImg = useMemo(
+    () =>
+      styled('img')({
+        borderRadius: '100%',
+        aspectRatio: '1',
+        filter: 'blur(.4px)',
+        boxShadow: `inset 0 0 0 10px ${PRIMARY}5a`,
+        border: `${isMobile ? '10px' : '40px'} solid ${PRIMARY}`,
+        boxSizing: 'border-box',
+      }),
+    [isMobile]
+  );
+
   useEffect((): (() => void) => {
+    new Image().src = MyImage;
+
     const interSecObserverRing = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]): void => {
         entries.forEach((entry: IntersectionObserverEntry): void => {
-          setTimeout((): void => {
-            if (entry.isIntersecting) entry.target.classList.add('padding28');
-            else entry.target.classList.remove('padding28');
-          }, 500);
+          setTimeout(
+            (entry: IntersectionObserverEntry): void => {
+              entry.isIntersecting
+                ? entry.target.classList.add('add-padding')
+                : entry.target.classList.remove('add-padding');
+            },
+            500,
+            entry
+          );
         });
       }
     );
@@ -57,15 +71,6 @@ const Section1 = () => {
     };
   }, []);
 
-  const CirclePrimaryImg = styled('img')({
-    borderRadius: '100%',
-    aspectRatio: '1',
-    filter: 'blur(.4px)',
-    boxShadow: `inset 0 0 0 10px ${PRIMARY}5a`,
-    border: `${isMobile ? '10px' : '40px'} solid ${PRIMARY}`,
-    boxSizing: 'border-box',
-  });
-
   return (
     <Grid2
       container
@@ -76,14 +81,9 @@ const Section1 = () => {
       columns={2}
       minWidth={{ md: 'calc(100vh - 100px)' }}
     >
-      <Grid2
-        md={1}
-        xs={2}
-        rowSpacing={{ xs: 4 }}
-        className='introduction-container__section1'
-      >
+      <Grid2 md={1} xs={2} className='introduction-container__section1'>
         <TypingEffectText
-          textToAnimate='I&rsquo;m Fazal Mohammadh, a Web Developer.'
+          textToAnimate='I&rsquo;m Fasal Mohammadh, a Web Developer.'
           typingSpeed={350}
           renderText={(text, props) => (
             <TypoH2Secondary800
@@ -100,14 +100,12 @@ const Section1 = () => {
           )}
         />
 
-        <TypoH2Secondary800>
-          <div style={{ color: PRIMARY }}>{role}</div>
-        </TypoH2Secondary800>
         <Typography
           color={Black[100]}
           fontWeight={500}
           mb={2}
-          fontSize='1.2rem'
+          variant='body1'
+          mt={{ xs: 2, md: 3 }}
         >
           I'm Fasal Mohammadh, shorty Fasal, and I'm{' '}
           {Math.floor(

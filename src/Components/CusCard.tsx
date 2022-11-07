@@ -5,12 +5,16 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  IconButton,
   Typography,
 } from '@mui/material';
+
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import SwiperNav from './SwiperNav';
+import { Black } from '../Constants/COLORS';
 
 interface CusCardProps {
   title: string;
@@ -43,9 +47,9 @@ const CusCard = ({ title, desc, imgSrcset }: CusCardProps): JSX.Element => (
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant='text' size='small'>
-          View Repository
-        </Button>
+        <IconButton size='small' sx={{ ml: 'auto' }}>
+          <GitHubIcon htmlColor={Black[100]} />
+        </IconButton>
       </CardActions>
     </Card>
   </Box>
