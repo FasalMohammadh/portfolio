@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -73,13 +73,14 @@ const Section1 = () => {
 
   return (
     <Grid2
+      id='about-me'
       container
       alignItems='center'
       boxSizing='border-box'
       justifyContent='space-between'
       className='introduction-container'
       columns={2}
-      minWidth={{ md: 'calc(100vh - 100px)' }}
+      sx={{ scrollMarginTop: '100px' }}
     >
       <Grid2 md={1} xs={2} className='introduction-container__section1'>
         <TypingEffectText
@@ -107,14 +108,14 @@ const Section1 = () => {
           variant='body1'
           mt={{ xs: 2, md: 3 }}
         >
-          I'm Fasal Mohammadh, shorty Fasal, and I'm{' '}
+          I&apos;m Fasal Mohammadh, shorty Fasal, and I&apos;m{' '}
           {Math.floor(
             (Date.now() -
               new Date('2000-02-02').setHours(0, 0, 0, 0).valueOf()) /
               (1000 * 60 * 60 * 24 * 365)
           )}{' '}
           years old. I am an IT professional with a higher national diploma. At
-          the moment, I'm a working as trainee web developer in DotTech
+          the moment, I&apos;m a working as trainee web developer in DotTech
           Softwares.
         </Typography>
         {!isMobile && <ContactMe />}
@@ -138,4 +139,4 @@ const Section1 = () => {
   );
 };
 
-export default Section1;
+export default React.memo(Section1);

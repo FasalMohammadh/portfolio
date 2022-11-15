@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { ThemeProvider } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -90,6 +90,7 @@ const App = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: '4em',
+              marginBlockEnd: '2em',
             }}
           >
             <Section1 />
@@ -98,7 +99,7 @@ const App = () => {
             <Section4 />
           </main>
 
-          <footer>
+          {/* <footer>
             <iframe
               src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.4100727503137!2d80.4369519143389!3d7.307742815577671!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3f8808d3ee6c69c0!2s6MV28C5Q%2B3MR!5e0!3m2!1sen!2slk!4v1661699086851!5m2!1sen!2slk'
               width='100%'
@@ -108,7 +109,7 @@ const App = () => {
               loading='lazy'
               referrerPolicy='no-referrer-when-downgrade'
             />
-          </footer>
+          </footer> */}
         </ThemeProvider>
       </Box>
     </>

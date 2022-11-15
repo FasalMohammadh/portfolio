@@ -1,6 +1,9 @@
+import React from 'react';
+
 import { Box } from '@mui/material';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import useIsMobile from '../Hooks/useIsMobile';
 
 import CusCard from './CusCard';
@@ -10,11 +13,11 @@ const Section3 = () => {
   const isMobile = useIsMobile();
 
   return (
-    <Box minWidth={{ md: 'calc(100vh - 100px)' }}>
+    <Box sx={{ scrollMarginTop: '100px' }} id='projects'>
       <TypoH2Secondary800>Projects</TypoH2Secondary800>
       <Box>
         <Swiper slidesPerView={isMobile ? 1 : 3} spaceBetween={32}>
-          <SwiperSlide>
+          <SwiperSlide style={{ height: '100%' }}>
             <CusCard
               title='My Virtual Shop'
               desc='Is the final semester Individual project created by
@@ -54,4 +57,4 @@ const Section3 = () => {
   );
 };
 
-export default Section3;
+export default React.memo(Section3);

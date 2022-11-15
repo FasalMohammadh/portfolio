@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Box from '@mui/material/Box';
 
 const Loading = ({
@@ -23,7 +25,8 @@ const Loading = ({
         sx={{
           aspectRatio: '1/1',
           background: 'linear-gradient(0.25turn, #7051ef, #7051effe)',
-          animation: 'bouncy-loading 1.5s linear forwards',
+          animation: 'bouncy-loading 1.5s  linear forwards',
+          animationDelay: '750ms',
           borderRadius: '999px',
           width: 0,
         }}

@@ -1,10 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, IconButton, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-
-import DataUsageIcon from '@mui/icons-material/DataUsage';
-import RectangleIcon from '@mui/icons-material/Crop75';
 
 import ReactIcon from './../assets/Technologies/React.webp';
 import HTMLIcon from './../assets/Technologies/HTML.webp';
@@ -17,10 +14,7 @@ import MysqlIcon from './../assets/Technologies/Mysql.webp';
 import MUIIcon from './../assets/Technologies/MUI.webp';
 
 import TypoH2Secondary800 from './TypoH2Secondary800';
-import LinearProgressWithLabel from './LinearProgressWithLabel';
-import CircularProgressWithLabel from './CircularProgressWithLabel';
 import LinearProgressBar from './LinearProgressBar';
-import CircularProgresses from './CircularProgresses';
 
 export type Expertise = {
   label: string;
@@ -28,96 +22,45 @@ export type Expertise = {
   iconURL: string;
 };
 
-const expertises: Expertise[] = [
-  { label: 'React', value: 50, iconURL: ReactIcon },
-  { label: 'HTML', value: 90, iconURL: HTMLIcon },
-  { label: 'CSS', value: 75, iconURL: CSSIcon },
-  { label: 'JavaScript', value: 60, iconURL: JavascriptIcon },
-  { label: 'TypeScript', value: 50, iconURL: TypescriptIcon },
-  { label: 'Node Js + Express', value: 65, iconURL: NodeJSIcon },
-  { label: 'Java', value: 55, iconURL: JavaIcon },
-  { label: 'MYSQL', value: 70, iconURL: MysqlIcon },
-  { label: 'MUI', value: 70, iconURL: MUIIcon },
-];
+const Section2 = () => (
+  <Box
+    boxSizing='border-box'
+    id='my-expertise'
+    sx={{ scrollMarginTop: '100px' }}
+  >
+    <TypoH2Secondary800>My Expertise</TypoH2Secondary800>
 
-const Section2 = () => {
-  const [progressType, setProgressType] = useState<'Linear' | 'Circular'>(
-    'Linear'
-  );
-
-  return (
-    <Box boxSizing='border-box' minWidth={{ md: 'calc(100vh - 100px)' }}>
-      <Stack direction='row' justifyContent='space-between' alignItems='center'>
-        <TypoH2Secondary800>My Expertise</TypoH2Secondary800>
-        <Stack gap={2} direction='row'>
-          <IconButton
-            sx={{ fontSize: '3em', aspectRatio: 1 }}
-            onClick={() => setProgressType('Circular')}
-          >
-            <DataUsageIcon
-              fontSize='inherit'
-              color={`${progressType === 'Circular' ? 'primary' : 'secondary'}`}
-            />
-          </IconButton>
-          <IconButton
-            sx={{ fontSize: '3em' }}
-            onClick={() => setProgressType('Linear')}
-          >
-            <RectangleIcon
-              fontSize='inherit'
-              color={`${progressType === 'Linear' ? 'primary' : 'secondary'}`}
-            />
-          </IconButton>
-        </Stack>
-      </Stack>
-
-      {progressType === 'Linear' ? (
-        <Grid2 container columns={3} columnSpacing={4} rowSpacing={1}>
-          {expertises.map((props: Expertise) => (
-            <Grid2 md={1} key={props.label}>
-              <LinearProgressBar {...props} />
-            </Grid2>
-          ))}
-        </Grid2>
-      ) : (
-        <Box
-          sx={{
-            aspectRatio: '1',
-            height: { md: '600px' },
-            marginInline: 'auto',
-          }}
-        >
-          <CircularProgresses progresses={expertises} />
-        </Box>
-      )}
-
-      {/* <Grid2 container columnSpacing={10} mt={3}>
-        <Grid2 lg={6}>
-          <Typography variant='h4' fontWeight={500} color='primary' mb={2}>
-            FrontEnd
-          </Typography>
-          <Stack gap={4}>
-            <LinearProgressBar value={50} iconURL={ReactIcon} label='React' />
-            <Component label='React' value={50} />
-            <Component label='HTML' value={90} />
-            <Component label='CSS' value={75} />
-            <Component label='JavaScript' value={50} />
-          </Stack>
-        </Grid2>
-        <Grid2 lg={6}>
-          <Typography variant='h4' fontWeight={500} color='primary' mb={2}>
-            BackEnd
-          </Typography>
-          <Stack gap={4}>
-            <Component label='Node Js' value={50} />
-            <Component label='Express' value={50} />
-            <Component label='Java' value={60} />
-            <Component label='MYSQL' value={70} />
-          </Stack>
-        </Grid2>
-      </Grid2> */}
+    <Box
+      display='grid'
+      gridTemplateColumns={{ md: 'repeat(2,1fr)' }}
+      maxWidth='100%'
+      sx={{ marginInline: 'auto' }}
+      rowGap={2}
+      columnGap={4}
+    >
+      <LinearProgressBar label='React' value={50} iconURL={ReactIcon} />
+      <LinearProgressBar label='HTML' value={90} iconURL={HTMLIcon} />
+      <LinearProgressBar label='CSS' value={75} iconURL={CSSIcon} />
+      <LinearProgressBar
+        label='JavaScript'
+        value={60}
+        iconURL={JavascriptIcon}
+      />
+      <LinearProgressBar
+        label='TypeScript'
+        value={50}
+        iconURL={TypescriptIcon}
+      />
+      <LinearProgressBar
+        label='Node Js + Express'
+        value={65}
+        iconURL={NodeJSIcon}
+      />
+      <LinearProgressBar label='Java' value={55} iconURL={JavaIcon} />
+      <LinearProgressBar label='MYSQL' value={70} iconURL={MysqlIcon} />
+      <LinearProgressBar label='MUI' value={70} iconURL={MUIIcon} />
     </Box>
-  );
-};
+  </Box>
+);
 
-export default Section2;
+export default React.memo(Section2);

@@ -1,28 +1,35 @@
-import { Link, Stack } from "@mui/material";
+import React from 'react';
 
-import { MONTSERRAT } from "./../Constants/FONTS";
+import { Link, Stack } from '@mui/material';
 
-const IconLink = ({
-  icon,
-  link,
-  linkText,
-}: {
+import { MONTSERRAT } from './../Constants/FONTS';
+
+import useIsMobile from '../Hooks/useIsMobile';
+
+type IconLinkProps = {
   icon: JSX.Element;
   link: string;
   linkText: string;
-}) => (
-  <Stack direction="row" gap={2} alignItems="center">
-    {icon}
+};
+
+const IconLink = ({ icon, link, linkText }: IconLinkProps) => {
+  const isMobile = useIsMobile();
+
+  return (
     <Link
-      sx={{ textDecoration: "none" }}
-      color="secondary"
+      sx={{ textDecoration: 'none' }}
+      color='secondary'
       href={link}
       fontWeight={500}
       fontFamily={MONTSERRAT}
+      variant={isMobile ? 'body2' : undefined}
     >
-      {linkText}
+      <Stack direction='row' gap={2} alignItems='center'>
+        {icon}
+        {linkText}
+      </Stack>
     </Link>
-  </Stack>
-);
+  );
+};
 
 export default IconLink;

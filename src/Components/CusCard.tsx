@@ -1,6 +1,7 @@
+import React from 'react';
+
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -23,7 +24,7 @@ interface CusCardProps {
 }
 
 const CusCard = ({ title, desc, imgSrcset }: CusCardProps): JSX.Element => (
-  <Box py={2}>
+  <Box py={2} height='100%'>
     <Card color='primary'>
       <Swiper>
         {imgSrcset.map((imgSrc, index) => (
