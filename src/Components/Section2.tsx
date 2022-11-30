@@ -22,45 +22,50 @@ export type Expertise = {
   iconURL: string;
 };
 
-const Section2 = () => (
-  <Box
-    boxSizing='border-box'
-    id='my-expertise'
-    sx={{ scrollMarginTop: '100px' }}
-  >
-    <TypoH2Secondary800>My Expertise</TypoH2Secondary800>
-
+const Section2 = React.forwardRef(
+  (_props, ref: React.ForwardedRef<HTMLDivElement>) => (
     <Box
-      display='grid'
-      gridTemplateColumns={{ md: 'repeat(2,1fr)' }}
-      maxWidth='100%'
-      sx={{ marginInline: 'auto' }}
-      rowGap={2}
-      columnGap={4}
+      boxSizing='border-box'
+      id='my-expertise'
+      sx={{ scrollMarginTop: '100px' }}
+      ref={ref}
     >
-      <LinearProgressBar label='React' value={50} iconURL={ReactIcon} />
-      <LinearProgressBar label='HTML' value={90} iconURL={HTMLIcon} />
-      <LinearProgressBar label='CSS' value={75} iconURL={CSSIcon} />
-      <LinearProgressBar
-        label='JavaScript'
-        value={60}
-        iconURL={JavascriptIcon}
-      />
-      <LinearProgressBar
-        label='TypeScript'
-        value={50}
-        iconURL={TypescriptIcon}
-      />
-      <LinearProgressBar
-        label='Node Js + Express'
-        value={65}
-        iconURL={NodeJSIcon}
-      />
-      <LinearProgressBar label='Java' value={55} iconURL={JavaIcon} />
-      <LinearProgressBar label='MYSQL' value={70} iconURL={MysqlIcon} />
-      <LinearProgressBar label='MUI' value={70} iconURL={MUIIcon} />
+      <TypoH2Secondary800>My Expertise</TypoH2Secondary800>
+
+      <Box
+        display='grid'
+        gridTemplateColumns={{ md: 'repeat(2,1fr)' }}
+        maxWidth='100%'
+        sx={{ marginInline: 'auto' }}
+        rowGap={2}
+        columnGap={4}
+      >
+        <LinearProgressBar label='React' value={50} iconURL={ReactIcon} />
+        <LinearProgressBar label='HTML' value={90} iconURL={HTMLIcon} />
+        <LinearProgressBar label='CSS' value={75} iconURL={CSSIcon} />
+        <LinearProgressBar
+          label='JavaScript'
+          value={60}
+          iconURL={JavascriptIcon}
+        />
+        <LinearProgressBar
+          label='TypeScript'
+          value={50}
+          iconURL={TypescriptIcon}
+        />
+        <LinearProgressBar
+          label='Node Js + Express'
+          value={65}
+          iconURL={NodeJSIcon}
+        />
+        <LinearProgressBar label='Java' value={55} iconURL={JavaIcon} />
+        <LinearProgressBar label='MYSQL' value={70} iconURL={MysqlIcon} />
+        <LinearProgressBar label='MUI' value={70} iconURL={MUIIcon} />
+      </Box>
     </Box>
-  </Box>
+  )
 );
+
+Section2.displayName = 'section2';
 
 export default React.memo(Section2);

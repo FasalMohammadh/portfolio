@@ -4,10 +4,10 @@ import Typography, { TypographyProps } from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
-import { PRIMARY } from '../Constants/COLORS';
 import { PLUS_JAKARTA } from '../Constants/FONTS';
 
 import useIsMobile from '../Hooks/useIsMobile';
+import { Theme } from '@mui/material';
 
 interface LinearProgressBarProps {
   value: number;
@@ -71,7 +71,11 @@ const LinearProgressBar = ({
           aria-valuenow={value}
           role='progressbar'
           ref={progressBarRef}
-          sx={{
+          sx={({
+            palette: {
+              primary: { main },
+            },
+          }) => ({
             flex: '1 1 0',
             height: '20px',
             backgroundColor: '#c8bcf8',
@@ -82,7 +86,7 @@ const LinearProgressBar = ({
               position: 'absolute',
               width: 0,
               height: '100%',
-              backgroundColor: PRIMARY,
+              backgroundColor: main,
               boxSizing: 'border-box',
               borderRadius: '99px 0 0 99px',
             },
@@ -106,7 +110,7 @@ const LinearProgressBar = ({
               transition: 'left 1s ease-in-out 500ms',
               left: `${value}%`,
             },
-          }}
+          })}
         />
         <Typography
           color='text.secondary'

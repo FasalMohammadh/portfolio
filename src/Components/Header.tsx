@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Stack from '@mui/material/Stack';
@@ -8,26 +8,35 @@ import Link from '@mui/material/Link';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import { List, ListItemButton } from '@mui/material';
+import { List, ListItemButton, useTheme } from '@mui/material';
 
-import CodeLogo from '../assets/code.webp';
+import DarkThemeIcon from '@mui/icons-material/Brightness4';
+import LightThemeIcon from '@mui/icons-material/Brightness7';
 
-import { Black } from '../Constants/COLORS';
+import CodeLogo from '../assets/code.svg';
+
 import { PLUS_JAKARTA } from '../Constants/FONTS';
 
 import useIsMobile from '../Hooks/useIsMobile';
+import ThemeContext from '../Context/ThemeContext';
 
 const Header = (): JSX.Element => {
+  const { setTheme, theme } = useContext(ThemeContext);
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const themeChoose = useTheme();
   const isMobile = useIsMobile();
 
   const handleClose = (): void => {
     setIsDrawerOpen(false);
   };
-
   return (
-    <AppBar sx={{ boxShadow: 'none', bgcolor: 'white' }} position='fixed'>
+    <AppBar
+      position='fixed'
+      color='transparent'
+      sx={{ backgroundColor: themeChoose.palette.background.default }}
+    >
       <Toolbar>
         <Box
           display={{ xs: 'grid', md: 'flex' }}
@@ -44,12 +53,12 @@ const Header = (): JSX.Element => {
             style={{
               width: ' clamp(2.5rem, -0.625rem + 10vw, 5rem)',
               objectFit: 'cover',
+              color: themeChoose.palette.primary.main,
             }}
           />
           <Typography
             variant={isMobile ? 'h6' : 'h5'}
             fontWeight={600}
-            color={Black[100]}
             fontFamily={PLUS_JAKARTA}
           >
             Web Developer
@@ -68,9 +77,9 @@ const Header = (): JSX.Element => {
                   gap={0.5}
                   justifyContent='center'
                 >
-                  <Box width='24px' height='2px' bgcolor={Black[100]} />
-                  <Box width='24px' height='2px' bgcolor={Black[100]} />
-                  <Box width='24px' height='2px' bgcolor={Black[100]} />
+                  <Box width='24px' height='2px' />
+                  <Box width='24px' height='2px' />
+                  <Box width='24px' height='2px' />
                 </Stack>
               </IconButton>
 
@@ -108,11 +117,24 @@ const Header = (): JSX.Element => {
               </Drawer>
             </Box>
           ) : (
-            <Stack ml='auto' gap={4} direction='row'>
+            <Stack ml='auto' gap={4} direction='row' alignItems='center'>
               <Link href='#about-me'>About Me</Link>
               <Link href='#my-expertise'>Expertise</Link>
               <Link href='#projects'>Projects</Link>
               <Link href='#contact-me'>Contact Me</Link>
+              <IconButton
+                onClick={() =>
+                  setTheme(currentTheme =>
+                    currentTheme === 'dark' ? 'light' : 'dark'
+                  )
+                }
+              >
+                {theme === 'dark' ? (
+                  <LightThemeIcon color='primary' />
+                ) : (
+                  <DarkThemeIcon color='primary' />
+                )}
+              </IconButton>
             </Stack>
           )}
         </Box>

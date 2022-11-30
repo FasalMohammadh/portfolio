@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { ButtonProps } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -7,8 +7,6 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
-
-import { PRIMARY } from '../Constants/COLORS';
 
 import ContactMeSocialMedia from './ContactMeSocialMedia';
 
@@ -23,7 +21,7 @@ const ContactMe = ({ BtnProps }: ContactMeProps): JSX.Element => {
 
   const [isPopOverVisible, setIsPopOverVisible] = useState<boolean>(false);
 
-  const buttonRef = useRef<HTMLButtonElement>(null!);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleClick = () => setIsPopOverVisible(true);
 
@@ -31,7 +29,7 @@ const ContactMe = ({ BtnProps }: ContactMeProps): JSX.Element => {
     <>
       {isMobile ? (
         <IconButton onClick={handleClick} ref={buttonRef}>
-          <ContactSupportIcon fontSize='large' htmlColor={PRIMARY} />
+          <ContactSupportIcon fontSize='large' color='primary' />
         </IconButton>
       ) : (
         <Button

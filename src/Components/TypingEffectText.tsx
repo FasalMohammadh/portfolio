@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 
 import { keyframes, SxProps } from '@mui/material';
 
-import { SECONDARY } from '../Constants/COLORS';
-
 type TypingEffectTextProps = {
   textToAnimate: string;
   typingSpeed: number;
@@ -31,14 +29,16 @@ const TypingEffectText = ({
   }, [text]);
 
   return renderText(text, {
-    sx: {
+    sx: props => ({
       borderRight:
-        text.slice(-1) === ' ' ? undefined : `4px solid ${SECONDARY}`,
+        text.slice(-1) === ' '
+          ? undefined
+          : `4px solid ${props.palette.secondary.main}`,
       animation: `blink-cursor 750ms infinite ease ${
         textToAnimate.length * typingSpeed
       }ms`,
       display: 'inline',
-    },
+    }),
   });
 };
 

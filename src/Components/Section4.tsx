@@ -12,6 +12,7 @@ import {
   Stack,
   TextField,
   Typography,
+  useTheme,
 } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
@@ -19,7 +20,6 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined';
 import SendIcon from '@mui/icons-material/Send';
 
-import { TEXTSECONDARY } from '../Constants/COLORS';
 import { PLUS_JAKARTA } from '../Constants/FONTS';
 
 import IconLink from './IconLink';
@@ -28,60 +28,66 @@ import ContactMeSocialMedia from './ContactMeSocialMedia';
 
 import useIsMobile from '../Hooks/useIsMobile';
 
-const Section4 = () => {
-  const [state, handleSubmit] = useForm('mrgdzkkp');
-  const [focusIconColor, setFocusIconColor] = useState<'primary' | 'disabled'>(
-    'disabled'
-  );
+const Section4 = React.forwardRef(
+  (_props, ref: React.ForwardedRef<HTMLDivElement | null>) => {
+    const [state, handleSubmit] = useForm('mrgdzkkp');
+    const [focusIconColor, setFocusIconColor] = useState<
+      'primary' | 'disabled'
+    >('disabled');
 
-  const isMobile = useIsMobile();
+    const theme = useTheme();
+    const isMobile = useIsMobile();
 
-  return (
-    <Box id='contact-me' sx={{ scrollMarginTop: '100px' }}>
-      <Grid2
-        container
-        alignItems='center'
-        columns={2}
-        rowSpacing={{ xs: 4, md: 'unset' }}
-      >
-        <Grid2 md={1}>
-          <TypoH2Secondary800>let&rsquo;s work together</TypoH2Secondary800>
-          <Typography color={TEXTSECONDARY} variant='h6' mb={3}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis
-            scelerisque purus eu quis lacus, nibh pharetra elit.
-          </Typography>
+    return (
+      <Box id='contact-me' sx={{ scrollMarginTop: '100px' }} ref={ref}>
+        <Stack
+          alignItems='center'
+          gap={4}
+          justifyContent='center'
+          flexDirection='row'
+          flexWrap='wrap'
+        >
+          <Box flex='1 1 0'>
+            <TypoH2Secondary800>let&rsquo;s work together</TypoH2Secondary800>
+            <Typography variant='h6' mb={3}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis
+              scelerisque purus eu quis lacus, nibh pharetra elit.
+            </Typography>
 
-          <Stack gap={2}>
-            <IconLink
-              icon={
-                <EmailOutlinedIcon
-                  color='primary'
-                  fontSize={isMobile ? undefined : 'large'}
-                />
-              }
-              link='mailto:FazalMohamed9367@gmail.com'
-              linkText='FazalMohamed9367@gmail.com'
-            />
-            <IconLink
-              icon={
-                <SmartphoneOutlinedIcon
-                  color='primary'
-                  fontSize={isMobile ? undefined : 'large'}
-                />
-              }
-              link='tel:+94778178500'
-              linkText='+94778178500'
-            />
-          </Stack>
-        </Grid2>
-        <Grid2 md={1}>
+            <Stack gap={2}>
+              <IconLink
+                icon={
+                  <EmailOutlinedIcon
+                    color='primary'
+                    fontSize={isMobile ? undefined : 'large'}
+                  />
+                }
+                link='mailto:FazalMohamed9367@gmail.com'
+                linkText='FazalMohamed9367@gmail.com'
+              />
+              <IconLink
+                icon={
+                  <SmartphoneOutlinedIcon
+                    color='primary'
+                    fontSize={isMobile ? undefined : 'large'}
+                  />
+                }
+                link='tel:+94778178500'
+                linkText='+94778178500'
+              />
+            </Stack>
+          </Box>
+
           <Stack
-            mx={{ md: 10 }}
+            minWidth={{ md: '400px' }}
+            width='fit-content'
+            ml={{ md: 'auto' }}
+            mr={{ xs: 'auto', md: 'unset' }}
             component='form'
             onSubmit={handleSubmit}
-            boxShadow='0 0 10px 0 rgba(0,0,0,0.2)'
+            boxShadow={`0 0 2px 0 ${theme.palette.primary.main}`}
             p={4}
-            borderRadius={{ xs: '10px', md: '40px' }}
+            borderRadius={{ xs: '20px', md: '40px' }}
             gap={3}
             alignItems='center'
           >
@@ -140,7 +146,6 @@ const Section4 = () => {
               disabled={state.submitting}
               sx={{ px: { md: 6 } }}
               endIcon={<SendIcon />}
-              fullWidth={isMobile}
             >
               Send Message
             </Button>
@@ -150,10 +155,12 @@ const Section4 = () => {
             </Typography>
             <ContactMeSocialMedia maxWidth='200px' />
           </Stack>
-        </Grid2>
-      </Grid2>
-    </Box>
-  );
-};
+        </Stack>
+      </Box>
+    );
+  }
+);
+
+Section4.displayName = 'section4';
 
 export default React.memo(Section4);
