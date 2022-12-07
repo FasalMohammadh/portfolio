@@ -1,52 +1,69 @@
-import { GlobalStyles, Grid, GridProps, IconButton } from "@mui/material";
+import React from 'react';
 
-import FacebookIcon from "../assets/SocialMediaLogos/FBLogo.webp";
-import LinkedInIcon from "../assets/SocialMediaLogos/linkedinLogo.webp";
-import InstagramIcon from "../assets/SocialMediaLogos/instagramLogo.webp";
-import WhatsappIcon from "../assets/SocialMediaLogos/whatsappLogo.webp";
+import { Stack, GlobalStyles, BoxProps, IconButton } from '@mui/material';
 
-const ContactMeSocialMedia = (props: GridProps) => {
+import FacebookIcon from '../assets/SocialMediaLogos/FBLogo.webp';
+import LinkedInIcon from '../assets/SocialMediaLogos/linkedinLogo.webp';
+import InstagramIcon from '../assets/SocialMediaLogos/instagramLogo.webp';
+import WhatsappIcon from '../assets/SocialMediaLogos/whatsappLogo.webp';
+import GitHubIcon from '../assets/SocialMediaLogos/github.png';
+
+const ContactMeSocialMedia = (props: BoxProps) => {
   return (
-    <Grid container {...props}>
-      <GlobalStyles styles={{ img: { minWidth: "0", width: "100%" } }} />
-      <Grid item xs={3}>
-        <IconButton
-          href="https://www.linkedin.com/in/fazal-mohamed-99211b235"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={LinkedInIcon} alt="" />
-        </IconButton>
-      </Grid>
-      <Grid item xs={3}>
-        <IconButton
-          href="https://www.instagram.com/fasalmohammadh/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={InstagramIcon} alt="" />
-        </IconButton>
-      </Grid>
-      <Grid item xs={3}>
-        <IconButton
-          href="https://www.facebook.com/fazal.mohamed.125323"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={FacebookIcon} alt="" />
-        </IconButton>
-      </Grid>
-      <Grid item xs={3}>
-        <IconButton
-          href="https://wa.me/94778178500"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={WhatsappIcon} alt="" />
-        </IconButton>
-      </Grid>
-    </Grid>
+    <Stack flexDirection='row' {...props}>
+      <GlobalStyles styles={{ img: { minWidth: '0', width: '100%' } }} />
+
+      <IconButton
+        sx={{ flex: '1 1 0' }}
+        href='https://www.linkedin.com/in/fazal-mohamed-99211b235'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label='Linked In'
+      >
+        <img src={LinkedInIcon} alt='Linked In Icon' />
+      </IconButton>
+
+      <IconButton
+        sx={{ flex: '1 1 0' }}
+        href='https://www.instagram.com/fasalmohammadh/'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label='Instagram'
+      >
+        <img src={InstagramIcon} alt='Instagram Icon' />
+      </IconButton>
+
+      <IconButton
+        sx={{ flex: '1 1 0' }}
+        href='https://www.facebook.com/fazal.mohamed.125323'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label='Facebook'
+      >
+        <img src={FacebookIcon} alt='Facebook Icon' />
+      </IconButton>
+
+      <IconButton
+        sx={{ flex: '1 1 0' }}
+        href='https://wa.me/94778178500'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label='Whatsapp'
+      >
+        <img src={WhatsappIcon} alt='Whatsapp Icon' />
+      </IconButton>
+
+      <IconButton
+        sx={{ flex: '1 1 0' }}
+        href='https://github.com/FasalMohammadh'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label='Github'
+      >
+        <img src={GitHubIcon} alt='Github Icon' />
+      </IconButton>
+    </Stack>
   );
 };
 
-export default ContactMeSocialMedia;
+export default React.memo(ContactMeSocialMedia);

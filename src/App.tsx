@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import {
   createTheme,
@@ -22,7 +22,16 @@ const App = () => {
     ? 'dark'
     : 'light';
 
-  const [theme, setTheme] = useState<PaletteMode>(prefersColorScheme);
+  const userPreferredTheme: PaletteMode | null =
+    localStorage.getItem('theme') === 'dark'
+      ? 'dark'
+      : localStorage.getItem('theme') === 'light'
+      ? 'light'
+      : null;
+
+  const [theme, setTheme] = useState<PaletteMode>(
+    userPreferredTheme ?? prefersColorScheme
+  );
 
   const muiTheme = useMemo(
     () =>

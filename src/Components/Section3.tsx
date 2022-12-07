@@ -32,13 +32,8 @@ const Section3 = React.forwardRef(
               <Card
                 icons={[ReactIcon, NodeIcon, HTMLIcon, CSSIcon, JavascriptIcon]}
                 title='My Virtual Shop'
-                desc='Is the final semester Individual project is an e-commerce website for mobile phone sellers where they can create an shop and list their products so users can easily view them if the want they can filter by price by phone specs by place ect..., to find the desired product at a comfortable price'
-                //ReactJs, NodeJs, ExpressJs, Mysql, Css, HTML, Bootstrap
-                imgSrcset={[
-                  'https://picsum.photos/id/1/400/250.webp',
-                  'https://picsum.photos/id/7/400/250.webp',
-                  'https://picsum.photos/id/7/400/250.webp',
-                ]}
+                desc='Is the final semester Individual project is an e-commerce website for mobile phone sellers where they can create an shop and list their products so users can easily view them if the want they can filter by price by phone specs by place etc..., to find the desired product at a comfortable price'
+                href='https://github.com/FasalMohammadh/MyVirtualShop'
               />
             </SwiperSlide>
             <SwiperSlide style={{ height: 'auto' }}>
@@ -46,12 +41,7 @@ const Section3 = React.forwardRef(
                 icons={[PHPIcon, HTMLIcon, CSSIcon, JavascriptIcon]}
                 title='PostIt'
                 desc='A Social Media Web Application which is a Group Project created in the 3rd Semester in this website users can send friend request to others, they can accept or reject it, can view friends posts, can like and dislike them, can chat with friends and update their information'
-                //PHP,JavaScript,HTML,CSS,SASS,Ajax,Mysql Bootstrap'
-                imgSrcset={[
-                  'https://picsum.photos/id/2/400/250.webp',
-                  'https://picsum.photos/id/4/400/250.webp',
-                  'https://picsum.photos/id/6/400/250.webp',
-                ]}
+                href='https://github.com/FasalMohammadh/PostIt'
               />
             </SwiperSlide>
             <SwiperSlide style={{ height: 'auto' }}>
@@ -59,12 +49,7 @@ const Section3 = React.forwardRef(
                 icons={[JavaIcon, HTMLIcon, CSSIcon, JavascriptIcon]}
                 title='Rent Portal'
                 desc='An Advertisement Website which is a Group Project created in the 3rd Semester where users can post their houses, shops, apartments for rent, they can also update or delete their advertisements so others can view it by filtering and if they want more information they can contact owner'
-                // Java, JavaScript, HTML, CSS, Ajax, Mysql
-                imgSrcset={[
-                  'https://picsum.photos/id/2/400/250.webp',
-                  'https://picsum.photos/id/4/400/250.webp',
-                  'https://picsum.photos/id/6/400/250.webp',
-                ]}
+                href='https://github.com/mmushfique/RentOnline'
               />
             </SwiperSlide>
           </Swiper>

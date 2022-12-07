@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Box, IconButton, Stack } from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import Box from '@mui/material/Box';
 
 import ReactIcon from './../assets/Technologies/React.webp';
 import HTMLIcon from './../assets/Technologies/HTML.webp';

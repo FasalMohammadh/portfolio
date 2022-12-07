@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { useForm, ValidationError } from '@formspree/react';
 
@@ -14,7 +14,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined';
@@ -22,7 +21,6 @@ import SendIcon from '@mui/icons-material/Send';
 
 import { PLUS_JAKARTA } from '../Constants/FONTS';
 
-import IconLink from './IconLink';
 import TypoH2Secondary800 from './TypoH2Secondary800';
 import ContactMeSocialMedia from './ContactMeSocialMedia';
 
@@ -34,6 +32,8 @@ const Section4 = React.forwardRef(
     const [focusIconColor, setFocusIconColor] = useState<
       'primary' | 'disabled'
     >('disabled');
+
+    const emailInputRef = useRef<HTMLInputElement>(null);
 
     const theme = useTheme();
     const isMobile = useIsMobile();
@@ -50,32 +50,43 @@ const Section4 = React.forwardRef(
           <Box flex='1 1 0'>
             <TypoH2Secondary800>let&rsquo;s work together</TypoH2Secondary800>
             <Typography variant='h6' mb={3}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis
-              scelerisque purus eu quis lacus, nibh pharetra elit.
+              Hi there! Would you like to speak with me in person, please email
+              me or call me at the number below.
             </Typography>
 
-            <Stack gap={2}>
-              <IconLink
-                icon={
-                  <EmailOutlinedIcon
-                    color='primary'
-                    fontSize={isMobile ? undefined : 'large'}
-                  />
-                }
-                link='mailto:FazalMohamed9367@gmail.com'
-                linkText='FazalMohamed9367@gmail.com'
-              />
-              <IconLink
-                icon={
-                  <SmartphoneOutlinedIcon
-                    color='primary'
-                    fontSize={isMobile ? undefined : 'large'}
-                  />
-                }
-                link='tel:+94778178500'
-                linkText='+94778178500'
-              />
-            </Stack>
+            <Button
+              variant='text'
+              style={{ transform: 'none ', width: 'fit-content' }}
+              startIcon={
+                <EmailOutlinedIcon
+                  color='primary'
+                  fontSize={isMobile ? undefined : 'large'}
+                />
+              }
+              onClick={() => {
+                emailInputRef.current !== null && emailInputRef.current.focus();
+              }}
+            >
+              <Typography variant={isMobile ? 'body2' : 'body1'}>
+                FazalMohamed9367@gmail.com
+              </Typography>
+            </Button>
+
+            <Button
+              variant='text'
+              href='tel:+94778178500'
+              startIcon={
+                <SmartphoneOutlinedIcon
+                  color='primary'
+                  fontSize={isMobile ? undefined : 'large'}
+                />
+              }
+              style={{ transform: 'none', width: 'fit-content' }}
+            >
+              <Typography variant={isMobile ? 'body2' : 'body1'}>
+                +94778178500
+              </Typography>
+            </Button>
           </Box>
 
           <Stack
@@ -93,6 +104,7 @@ const Section4 = React.forwardRef(
           >
             <FormControl fullWidth>
               <TextField
+                inputRef={emailInputRef}
                 spellCheck='false'
                 autoComplete='email'
                 label='Email Address'
@@ -151,9 +163,9 @@ const Section4 = React.forwardRef(
             </Button>
             <Divider variant='middle' flexItem />
             <Typography variant={isMobile ? 'body2' : undefined}>
-              Follow Me On Social Media
+              Find me on
             </Typography>
-            <ContactMeSocialMedia maxWidth='200px' />
+            <ContactMeSocialMedia maxWidth='280px' />
           </Stack>
         </Stack>
       </Box>

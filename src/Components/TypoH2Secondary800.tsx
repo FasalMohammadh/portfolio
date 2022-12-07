@@ -21,4 +21,4 @@ const TypoH2Secondary800 = (props: TypographyProps) => {
   );
 };
 
-export default TypoH2Secondary800;
+export default React.memo(TypoH2Secondary800);

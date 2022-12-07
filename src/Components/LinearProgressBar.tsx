@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useId, useRef } from 'react';
 
 import Typography, { TypographyProps } from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import { keyframes } from '@mui/material';
+
+import ThemeContext from '../Context/ThemeContext';
 
 import { PLUS_JAKARTA } from '../Constants/FONTS';
 
 import useIsMobile from '../Hooks/useIsMobile';
-import { Theme } from '@mui/material';
 
 interface LinearProgressBarProps {
   value: number;
@@ -16,15 +18,30 @@ interface LinearProgressBarProps {
   containerProps?: TypographyProps;
 }
 
+const animateValue = (value: number) => {
+  let stringToBeReturn = '';
+  for (let i = 0; i <= value; i++)
+    stringToBeReturn += `${i}% {
+        counter-increment:count ${i};
+      }`;
+
+  return keyframes`${stringToBeReturn}100% {
+    counter-increment:count ${value};
+  }`;
+};
+
 const LinearProgressBar = ({
   value,
   iconURL,
   label,
   containerProps,
 }: LinearProgressBarProps) => {
-  // const [steppedValue, setSteppedValue] = useState(0);
+  const { theme } = useContext(ThemeContext);
+
+  const id = useId();
 
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressBarValueRef = useRef<HTMLParagraphElement>(null);
 
   const isMobile = useIsMobile();
 
@@ -33,43 +50,41 @@ const LinearProgressBar = ({
       (entries: IntersectionObserverEntry[]) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
             entry.target.classList.contains('animate') && observer.disconnect();
+            entry.target.classList.add('animate');
           }
         });
       }
     );
 
     progressBarRef.current && observer.observe(progressBarRef.current);
+    progressBarValueRef.current &&
+      observer.observe(progressBarValueRef.current);
 
     return () => {
       observer.disconnect();
     };
-  }, []);
-
-  // useEffect((): void => {
-  //   steppedValue !== value &&
-  //     setTimeout((): void => {
-  //       setSteppedValue(currentState => currentState + 1);
-  //     }, 1000 / value);
-  // }, [steppedValue]);
+  }, [theme]);
 
   return (
-    <Typography
-      variant={isMobile ? 'body1' : 'h6'}
-      fontWeight={500}
-      fontFamily={PLUS_JAKARTA}
-      color='secondary'
-      role='presentation'
-      {...containerProps}
-    >
-      {label}
+    <Stack {...containerProps}>
+      <Typography
+        variant={isMobile ? 'body1' : 'h6'}
+        fontWeight={500}
+        fontFamily={PLUS_JAKARTA}
+        color='secondary'
+        role='presentation'
+        id={`Progressbar-label${id}`}
+      >
+        {label}
+      </Typography>
       <Stack direction='row' alignItems='center' mt={{ xs: 0, md: 1 }} gap={1}>
         <Box
           aria-valuemax={100}
           aria-valuemin={0}
           aria-valuenow={value}
           role='progressbar'
+          aria-labelledby={`Progressbar-label${id}`}
           ref={progressBarRef}
           sx={({
             palette: {
@@ -113,13 +128,24 @@ const LinearProgressBar = ({
           })}
         />
         <Typography
+          ref={progressBarValueRef}
           color='text.secondary'
           variant='body2'
           fontWeight={600}
-        >{`${value}%`}</Typography>
+          sx={{
+            '::after': { content: '"%"' },
+            '&.animate::before': {
+              content: 'counter(count)',
+              animation: `${animateValue(
+                value
+              )} 1000ms steps(${value}) forwards 500ms`,
+              counterReset: 'count 0',
+            },
+          }}
+        />
       </Stack>
-    </Typography>
+    </Stack>
   );
 };
 
-export default LinearProgressBar;
+export default React.memo(LinearProgressBar);

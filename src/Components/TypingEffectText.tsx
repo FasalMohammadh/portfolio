@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { keyframes, SxProps } from '@mui/material';
+import { keyframes, SxProps, Theme } from '@mui/material';
 
 type TypingEffectTextProps = {
   textToAnimate: string;
   typingSpeed: number;
-  renderText: (text: string, props: { sx: SxProps }) => JSX.Element;
+  renderText: (text: string, props: { sx: SxProps<Theme> }) => JSX.Element;
 };
 
-const blinkCursorAnimation = keyframes`@keyframes{
+const blinkCursorAnimation = keyframes`
   50% {
-    borderColor: transparent;
+    border-color: transparent;
   }
-}`;
+`;
 
 const TypingEffectText = ({
   textToAnimate,
@@ -29,12 +29,12 @@ const TypingEffectText = ({
   }, [text]);
 
   return renderText(text, {
-    sx: props => ({
+    sx: theme => ({
       borderRight:
         text.slice(-1) === ' '
           ? undefined
-          : `4px solid ${props.palette.secondary.main}`,
-      animation: `blink-cursor 750ms infinite ease ${
+          : `4px solid ${theme.palette.secondary.main}`,
+      animation: `${blinkCursorAnimation} 750ms infinite ease ${
         textToAnimate.length * typingSpeed
       }ms`,
       display: 'inline',
@@ -42,4 +42,4 @@ const TypingEffectText = ({
   });
 };
 
-export default TypingEffectText;
+export default React.memo(TypingEffectText);

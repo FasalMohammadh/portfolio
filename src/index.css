@@ -59,30 +59,6 @@ body {
   background: #000;
 }
 
-
-
-/* .cus-card-desc {
-  position: absolute;
-  top: 0;
-  animation: animateText 1s infinite ease-in-out;
-  animation-play-state: paused;
-  animation-delay: calc(var(--scroll) * -1s);
-}
-@keyframes animateText {
-  0% {
-    top: 0;
-  }
-  25% {
-    top: -24px;
-  }
-  50% {
-    top: -48px;
-  }
-  75% {
-    top: -72px;
-  }
-} */
-
 @keyframes bouncy-loading {
   5% {
     width: 40px;
@@ -101,12 +77,6 @@ body {
   }
 }
 
-@keyframes blink-cursor {
-  50% {
-    border-color: transparent;
-  }
-}
-
 .add-padding {
   transition: padding 500ms ease-in-out;
   padding: 28px;
@@ -116,30 +86,5 @@ body {
   .add-padding {
     transition: padding 500ms ease-in-out;
     padding: 14px;
-  }
-}
-
-@keyframes bounce {
-  10% {
-    bottom: 40px;
-  }
-  20%,
-  40%,
-  60%,
-  80%,
-  100% {
-    bottom: 20px;
-  }
-  30% {
-    bottom: 35px;
-  }
-  50% {
-    bottom: 30px;
-  }
-  50% {
-    bottom: 25px;
-  }
-  50% {
-    bottom: 22px;
   }
 }

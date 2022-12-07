@@ -82,4 +82,4 @@ const SwiperNav = (): JSX.Element => {
   );
 };
 
-export default SwiperNav;
+export default React.memo(SwiperNav);

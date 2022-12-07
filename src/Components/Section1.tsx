@@ -1,76 +1,21 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { styled, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 import MyImage from './../assets/MyImage.webp';
 
 import TypoH2Secondary800 from './TypoH2Secondary800';
 import TypingEffectText from './TypingEffectText';
 
-import useIsMobile from '../Hooks/useIsMobile';
-
-const CircleBorder = styled(Box)({
-  borderRadius: '100%',
-  border: '4px solid #ede7f6',
-  boxShadow: '0 0 0 2px rgb(237 231 246/.1)',
-  marginInline: 'auto',
-  boxSizing: 'border-box',
-});
-
 const Section1 = React.forwardRef(
   (_props, ref: React.ForwardedRef<HTMLDivElement>): JSX.Element => {
     const theme = useTheme();
 
-    const isMobile = useIsMobile();
-
-    const circleBorderRef = useRef<HTMLDivElement>(null);
-    const circleBorder2Ref = useRef<HTMLDivElement>(null);
-
-    const CirclePrimaryImg = useMemo(
-      () =>
-        styled('img')({
-          borderRadius: '100%',
-          aspectRatio: '1',
-          filter: 'blur(.4px)',
-          boxShadow: `inset 0 0 0 10px ${theme.palette.primary.main}5a`,
-          border: `${isMobile ? '10px' : '40px'} solid ${
-            theme.palette.primary.main
-          }`,
-          boxSizing: 'border-box',
-        }),
-      [isMobile]
-    );
-
-    useEffect((): (() => void) => {
-      new Image().src = MyImage;
-
-      const interSecObserverRing = new IntersectionObserver(
-        (entries: IntersectionObserverEntry[]): void => {
-          entries.forEach((entry: IntersectionObserverEntry): void => {
-            setTimeout(
-              (entry: IntersectionObserverEntry): void => {
-                entry.isIntersecting
-                  ? entry.target.classList.add('add-padding')
-                  : entry.target.classList.remove('add-padding');
-              },
-              500,
-              entry
-            );
-          });
-        }
-      );
-
-      circleBorderRef.current &&
-        interSecObserverRing.observe(circleBorderRef.current);
-      circleBorder2Ref.current &&
-        interSecObserverRing.observe(circleBorder2Ref.current);
-
-      return (): void => {
-        interSecObserverRing.disconnect();
-      };
+    useEffect(() => {
+      const img = new Image();
+      img.src = MyImage;
     }, []);
 
     return (
@@ -80,23 +25,17 @@ const Section1 = React.forwardRef(
         alignItems='center'
         boxSizing='border-box'
         justifyContent='space-between'
-        className='introduction-container'
         columns={2}
         sx={{ scrollMarginTop: '100px' }}
         ref={ref}
       >
-        <Grid2 md={1} xs={2} className='introduction-container__section1'>
+        <Grid2 md={1} xs={2}>
           <TypingEffectText
             textToAnimate='I&rsquo;m Fasal Mohammadh, a Web Developer.'
             typingSpeed={350}
             renderText={(text, props) => (
               <TypoH2Secondary800
-                style={{
-                  background: `linear-gradient(45deg, ${theme.palette.primary.main},${theme.palette.secondary.main})`,
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                }}
+                style={{ color: theme.palette.primary.main }}
                 {...props}
               >
                 {text}
@@ -105,11 +44,16 @@ const Section1 = React.forwardRef(
           />
 
           <Typography
-            color={theme.palette.primary.main}
             fontWeight={500}
             mb={2}
             variant='body1'
             mt={{ xs: 2, md: 3 }}
+            sx={{
+              background: `linear-gradient(to top,${theme.palette.primary.main},${theme.palette.secondary.main})`,
+              backgroundClip: 'text',
+              color: 'transparent',
+              '--webkit-background-clip': 'text',
+            }}
           >
             I&apos;m Fasal Mohammadh, shorty Fasal, and I&apos;m{' '}
             {Math.floor(
@@ -126,16 +70,48 @@ const Section1 = React.forwardRef(
           md={1}
           xs={2}
           alignSelf='center'
-          className='introduction-container__section2'
+          position='relative'
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
         >
-          <CircleBorder
-            ref={circleBorder2Ref}
-            maxWidth={{ md: 'calc(100% - 100px)' }}
+          <svg
+            viewBox='0 0 200 200'
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+            }}
+            id='shape'
           >
-            <CircleBorder ref={circleBorderRef}>
-              <CirclePrimaryImg src={MyImage} alt='' />
-            </CircleBorder>
-          </CircleBorder>
+            <defs>
+              <linearGradient id='gradient'>
+                <stop offset='0%' stopColor={theme.palette.primary.main} />
+                <stop offset='100%' stopColor={theme.palette.secondary.main} />
+              </linearGradient>
+            </defs>
+            <path
+              d='M38.3,-62C49.1,-52.7,56.8,-41.1,63.9,-28.4C71,-15.6,77.5,-1.8,73.5,9C69.5,19.8,55,27.4,44.4,36.8C33.7,46.2,26.9,57.2,16.9,62.4C6.9,67.7,-6.3,67,-17.4,62.3C-28.4,57.6,-37.4,48.9,-46,39.5C-54.6,30.2,-62.9,20.2,-68.7,7.3C-74.5,-5.5,-77.8,-21.3,-74.7,-36.7C-71.7,-52.1,-62.2,-67.1,-48.7,-75.1C-35.2,-83.2,-17.6,-84.2,-1.9,-81.3C13.8,-78.3,27.6,-71.3,38.3,-62Z'
+              style={{
+                fill: 'url(#gradient)',
+                transform: 'translate(50%,50%)',
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </svg>
+
+          <img
+            src={MyImage}
+            alt='My Image'
+            style={{
+              borderRadius: '100%',
+              aspectRatio: '1',
+              maxWidth: '500px',
+              backdropFilter: 'blur(.5px)',
+            }}
+          />
         </Grid2>
       </Grid2>
     );
