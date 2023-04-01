@@ -39,7 +39,7 @@ const Section4 = React.forwardRef(
     const isMobile = useIsMobile();
 
     return (
-      <Box id='contact-me' sx={{ scrollMarginTop: '100px' }} ref={ref}>
+      <Box flex='0 0 100%' sx={{ scrollSnapAlign: 'center' }} ref={ref}>
         <Stack
           alignItems='center'
           gap={4}

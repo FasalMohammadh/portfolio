@@ -1,10 +1,22 @@
 import Box from '@mui/material/Box';
+import { keyframes } from '@mui/material';
 
-const Loading = ({
-  handleAnimationEnd,
-}: {
+interface LoadingProps {
   handleAnimationEnd: () => void;
-}): JSX.Element => {
+}
+
+const bouncyLoadingAnimation = keyframes`
+  5%,35% {
+    width: 40px;
+  }
+  40%, 70% {
+    width: 120px;
+  }
+  100% {
+    width: 150vmax ;
+  }`;
+
+function Loading({ handleAnimationEnd }: LoadingProps) {
   return (
     <Box
       sx={theme => ({
@@ -23,14 +35,13 @@ const Loading = ({
         sx={theme => ({
           aspectRatio: '1/1',
           background: `linear-gradient(0.25turn, ${theme.palette.secondary.main}, ${theme.palette.secondary.main}fe)`,
-          animation: 'bouncy-loading 1.5s  linear forwards',
-          animationDelay: '750ms',
+          animation: `${bouncyLoadingAnimation} 1.5s  linear forwards`,
           borderRadius: '999px',
-          width: 0,
+          willChange: 'width',
         })}
       />
     </Box>
   );
-};
+}
 
 export default Loading;

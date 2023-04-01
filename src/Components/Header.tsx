@@ -27,6 +27,8 @@ import useIsMobile from '../Hooks/useIsMobile';
 
 import ThemeIcon from './ThemeIcon';
 
+import { NAV_ITEM } from '../Pages';
+
 const StyledLink = styled(Link)(({ theme }) => {
   return {
     fontWeight: 600,
@@ -49,17 +51,15 @@ const StyledLink = styled(Link)(({ theme }) => {
     '&:hover::after': {
       transform: 'translateX(0)',
     },
-    '&.active::after': {
-      transform: 'translateX(0)',
-    },
   };
 });
 
-export interface HeaderHandle {
-  toggleActiveClass: () => void;
+interface HeaderProps {
+  activeLink: NAV_ITEM;
+  scrollToSection: (item: NAV_ITEM) => void;
 }
 
-const Header = React.forwardRef<HeaderHandle>((_props, ref): JSX.Element => {
+const Header = ({ activeLink, scrollToSection }: HeaderProps) => {
   const { theme } = useContext(ThemeContext);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -67,69 +67,20 @@ const Header = React.forwardRef<HeaderHandle>((_props, ref): JSX.Element => {
   const themeChoose = useTheme();
   const isMobile = useIsMobile();
 
-  const aboutMeRef = useRef<HTMLAnchorElement>(null);
-  const expertiseRef = useRef<HTMLAnchorElement>(null);
-  const projectsRef = useRef<HTMLAnchorElement>(null);
-  const contactMeRef = useRef<HTMLAnchorElement>(null);
-
-  const toggleActiveClass = useCallback((): void => {
-    if (
-      aboutMeRef.current === null ||
-      expertiseRef.current === null ||
-      projectsRef.current === null ||
-      contactMeRef.current === null
-    )
-      return undefined;
-
-    const hash = window.location.hash.split('#')[1];
-
-    aboutMeRef.current.classList.remove('active');
-    expertiseRef.current.classList.remove('active');
-    projectsRef.current.classList.remove('active');
-    contactMeRef.current.classList.remove('active');
-
-    switch (hash) {
-      case 'about-me':
-        aboutMeRef.current.classList.add('active');
-        break;
-      case 'my-expertise':
-        expertiseRef.current.classList.add('active');
-        break;
-      case 'projects':
-        projectsRef.current.classList.add('active');
-        break;
-      case 'contact-me':
-        contactMeRef.current.classList.add('active');
-        break;
-      //no default
-    }
-  }, []);
-
-  useImperativeHandle(ref, () => ({
-    toggleActiveClass,
-  }));
-
-  useEffect(() => {
-    window.addEventListener('hashchange', toggleActiveClass);
-
-    return () => {
-      window.removeEventListener('hashchange', toggleActiveClass);
-    };
-  }, [theme, toggleActiveClass]);
-
-  const handleClose = (): void => {
+  function handleClose() {
     setIsDrawerOpen(false);
-  };
+  }
+
+  function getActiveStyles(assertion: Boolean) {
+    if (assertion) return { '&::after': { transform: 'translateX(0)' } };
+
+    return undefined;
+  }
 
   return (
     <AppBar
-      position='fixed'
-      style={{
-        backgroundColor: themeChoose.palette.background.default,
-        maxWidth: '1440px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-      }}
+      position='static'
+      style={{ backgroundColor: themeChoose.palette.background.default }}
     >
       <Toolbar>
         <Box
@@ -199,32 +150,16 @@ l-32 -64 -3 -189 c-4 -218 5 -261 68 -350 36 -50 75 -80 312 -239 294 -198
                 id='PrimaryNavigation'
               >
                 <Stack gap={2} direction='column' alignItems='flex-start' p={4}>
-                  <StyledLink
-                    href='#about-me'
-                    ref={aboutMeRef}
-                    onClick={handleClose}
-                  >
+                  <StyledLink href='#about-me' onClick={handleClose}>
                     About Me
                   </StyledLink>
-                  <StyledLink
-                    href='#my-expertise'
-                    ref={expertiseRef}
-                    onClick={handleClose}
-                  >
+                  <StyledLink href='#my-expertise' onClick={handleClose}>
                     Expertise
                   </StyledLink>
-                  <StyledLink
-                    href='#projects'
-                    ref={projectsRef}
-                    onClick={handleClose}
-                  >
+                  <StyledLink href='#projects' onClick={handleClose}>
                     Projects
                   </StyledLink>
-                  <StyledLink
-                    href='#contact-me'
-                    ref={contactMeRef}
-                    onClick={handleClose}
-                  >
+                  <StyledLink href='#contact-me' onClick={handleClose}>
                     Contact Me
                   </StyledLink>
                   <ThemeIcon />
@@ -233,16 +168,28 @@ l-32 -64 -3 -189 c-4 -218 5 -261 68 -350 36 -50 75 -80 312 -239 294 -198
             </Box>
           ) : (
             <Stack ml='auto' gap={4} direction='row' alignItems='center'>
-              <StyledLink href='#about-me' ref={aboutMeRef}>
+              <StyledLink
+                onClick={() => scrollToSection(NAV_ITEM.About)}
+                sx={getActiveStyles(activeLink === NAV_ITEM.About)}
+              >
                 About Me
               </StyledLink>
-              <StyledLink href='#my-expertise' ref={expertiseRef}>
+              <StyledLink
+                onClick={() => scrollToSection(NAV_ITEM.Expertise)}
+                sx={getActiveStyles(activeLink === NAV_ITEM.Expertise)}
+              >
                 Expertise
               </StyledLink>
-              <StyledLink href='#projects' ref={projectsRef}>
+              <StyledLink
+                onClick={() => scrollToSection(NAV_ITEM.Projects)}
+                sx={getActiveStyles(activeLink === NAV_ITEM.Projects)}
+              >
                 Projects
               </StyledLink>
-              <StyledLink href='#contact-me' ref={contactMeRef}>
+              <StyledLink
+                onClick={() => scrollToSection(NAV_ITEM.Contact)}
+                sx={getActiveStyles(activeLink === NAV_ITEM.Contact)}
+              >
                 Contact Me
               </StyledLink>
               <ThemeIcon />
@@ -252,7 +199,7 @@ l-32 -64 -3 -189 c-4 -218 5 -261 68 -350 36 -50 75 -80 312 -239 294 -198
       </Toolbar>
     </AppBar>
   );
-});
+};
 
 Header.displayName = 'Header';
 

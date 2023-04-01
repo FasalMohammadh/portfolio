@@ -24,9 +24,9 @@ export type Expertise = {
 const Section2 = React.forwardRef(
   (_props, ref: React.ForwardedRef<HTMLDivElement>) => (
     <Box
+      flex='0 0 100%'
       boxSizing='border-box'
-      id='my-expertise'
-      sx={{ scrollMarginTop: '100px' }}
+      sx={{ scrollSnapAlign: 'center' }}
       ref={ref}
     >
       <TypoH2Secondary800>My Expertise</TypoH2Secondary800>

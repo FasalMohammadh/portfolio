@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
 import Typography from '@mui/material/Typography';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 
 import MyImage from './../assets/MyImage.webp';
 
@@ -10,7 +9,7 @@ import TypoH2Secondary800 from './TypoH2Secondary800';
 import TypingEffectText from './TypingEffectText';
 
 const Section1 = React.forwardRef(
-  (_props, ref: React.ForwardedRef<HTMLDivElement>): JSX.Element => {
+  (_props, ref: React.ForwardedRef<HTMLDivElement>) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -19,17 +18,17 @@ const Section1 = React.forwardRef(
     }, []);
 
     return (
-      <Grid2
-        id='about-me'
-        container
+      <Box
+        flex='0 0 100%'
+        display='grid'
         alignItems='center'
         boxSizing='border-box'
         justifyContent='space-between'
-        columns={2}
-        sx={{ scrollMarginTop: '100px' }}
+        gridTemplateColumns={{ xs: 'auto', md: 'repeat(2,1fr)' }}
+        sx={{ scrollSnapAlign: 'center' }}
         ref={ref}
       >
-        <Grid2 md={1} xs={2}>
+        <Box>
           <TypingEffectText
             textToAnimate='I&rsquo;m Fasal Mohammadh, a Web Developer.'
             typingSpeed={350}
@@ -65,10 +64,8 @@ const Section1 = React.forwardRef(
             At the moment, I&apos;m a working as trainee web developer in
             DotTech Softwares.
           </Typography>
-        </Grid2>
-        <Grid2
-          md={1}
-          xs={2}
+        </Box>
+        <Box
           alignSelf='center'
           position='relative'
           display='flex'
@@ -112,8 +109,8 @@ const Section1 = React.forwardRef(
               backdropFilter: 'blur(.5px)',
             }}
           />
-        </Grid2>
-      </Grid2>
+        </Box>
+      </Box>
     );
   }
 );
