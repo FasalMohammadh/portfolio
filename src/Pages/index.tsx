@@ -24,12 +24,9 @@ const MainPage = () => {
   }).current;
 
   useEffect(() => {
-    console.log('asda');
     const x = new IntersectionObserver(
       entries => {
-        console.log(entries.length);
         entries.forEach(entry => {
-          console.log(entry.isIntersecting);
         });
       },
       { root: container.current }
@@ -93,33 +90,3 @@ enum NAV_ITEM {
 
 export { NAV_ITEM };
 export default MainPage;
-
-{
-  /* <Box display={isLoading ? 'none' : undefined} height={1}>
-        <Header ref={headerHandleRef} /> */
-}
-
-{
-  /* <Box
-          component='main'
-          sx={{
-            maxWidth: { sm: 'min(80%,600px)', md: '1400px' },
-            marginInline: { sm: 'auto' },
-            marginTop: '100px',
-            paddingInline: { xs: '18px', md: '56px' },
-            display: 'flex',
-            flexDirection: 'column',
-            gap: { xs: '2em', md: '4em' },
-            paddingBlockEnd: '2em',
-          }}
-          >
-          <Section1 ref={section1Ref} />
-          <Section2 ref={section2Ref} />
-          <Section3 ref={section3Ref} />
-          <Section4 ref={section4Ref} />
-        </Box> */
-}
-
-{
-  /* </Box> */
-}
